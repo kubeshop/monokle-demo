@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: panda-blog
+  labels:
+    name: panda-blog
+    monokle.io/demo: vanilla-panda-blog
+spec:
+  rules:
+    - host: api.example.local
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: panda-blog
+                port:
+                  number: 80

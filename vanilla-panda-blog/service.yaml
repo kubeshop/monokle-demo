@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: panda-blog
+  labels:
+    monokle.io/demo: vanilla-panda-blog
+spec:
+  selector:
+    app: panda-blog
+  ports:
+    - name: http-web
+      protocol: TCP
+      port: 80
+      targetPort: 8080
