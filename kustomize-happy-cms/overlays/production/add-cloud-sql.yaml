@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: happy-cms
+spec:
+  template:
+    spec:
+      containers:
+        - name: happy-cms
+          env:
+            - name: POSTGRES_HOST
+              value: localhost # Override for cloud-sql-proxy
+        - name: cloud-sql-proxy
+          image: gcr.io/cloudsql-docker/gce-proxy:1.17
+          command:
+            - "/cloud_sql_proxy"
+            - "-instances=YOUR-PROJECT-ID:europe-west1:YOUR-SQL-INSTANCE=tcp:5432"
+          securityContext:
+            runAsNonRoot: true

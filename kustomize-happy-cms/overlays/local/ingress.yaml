@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: happy-cms
+  labels:
+    name: happy-cms
+    monokle.io/demo: kustomize-happy-cms
+spec:
+  rules:
+    - host: api.example.local
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: demo
+                port:
+                  number: 80

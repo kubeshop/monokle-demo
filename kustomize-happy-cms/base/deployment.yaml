@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: happy-cms
+  labels:
+    monokle.io/demo: kustomize-happy-cms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: happy-cms
+  template:
+    metadata:
+      labels:
+        app: happy-cms
+    spec:
+      containers:
+        - name: happy-cms
+          image: happy-cms:latest
+          ports:
+            - name: http-web
+              containerPort: 8080
