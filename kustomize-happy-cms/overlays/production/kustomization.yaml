@@ -3,6 +3,6 @@ kind: Kustomization
 bases:
   - ../../base
 resources:
-  - ingress.yml
+  - ingress.yaml
 patchesStrategicMerge:
-  - add-cloud-sql.yml
+  - add-cloud-sql.yaml
