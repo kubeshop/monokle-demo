@@ -1,12 +1,26 @@
+name: Test Kubernetes
 on: [push]
 
 jobs:
   validate_job:
     runs-on: ubuntu-latest
-    name: Validate Monokle resources
+    permissions:
+      security-events: write
+    name: Validate with Monokle
     steps:
-      - name: Validate
-        id: validate
-        uses: kubeshop/monokle-action@v0.1.0
+      - id: checkout
+        uses: actions/checkout@master
+      - id: bake
+        uses: azure/k8s-bake@v2.2
         with:
-          milliseconds: "350"
+          renderEngine: "kustomize"
+          kustomizationPath: "./kustomize-happy-cms/overlays/local"
+      - id: validate
+        uses: kubeshop/monokle-action@v0.1.4
+        with:
+          path: ${{ steps.bake.outputs.manifestsBundle }}
+      - id: upload-sarif
+        if: always()
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: ${{ steps.validate.outputs.sarif }}
