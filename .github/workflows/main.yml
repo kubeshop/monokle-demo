@@ -1,0 +1,12 @@
+on: [push]
+
+jobs:
+  validate_job:
+    runs-on: ubuntu-latest
+    name: Validate Monokle resources
+    steps:
+      - name: Validate
+        id: validate
+        uses: kubeshop/monokle-action@v0.1.0
+        with:
+          milliseconds: "350"
