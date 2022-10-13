@@ -2,11 +2,11 @@ name: Test Kubernetes
 on: [push]
 
 jobs:
-  validate_job:
+  validate_kustomize:
     runs-on: ubuntu-latest
     permissions:
       security-events: write
-    name: Validate with Monokle
+    name: Validate Kustomize with Monokle
     steps:
       - id: checkout
         uses: actions/checkout@master
@@ -16,7 +16,7 @@ jobs:
           renderEngine: "kustomize"
           kustomizationPath: "./kustomize-happy-cms/overlays/local"
       - id: validate
-        uses: kubeshop/monokle-action@v0.1.4
+        uses: kubeshop/monokle-action@v0.2.0
         with:
           path: ${{ steps.bake.outputs.manifestsBundle }}
       - id: upload-sarif
@@ -24,3 +24,32 @@ jobs:
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: ${{ steps.validate.outputs.sarif }}
+  validate_vanilla:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    name: Validate vanilla Kubernetes resources with Monokle
+    steps:
+      - id: checkout
+        uses: actions/checkout@master
+      - id: validate
+        uses: kubeshop/monokle-action@v0.2.0
+        with:
+          path: vanilla-panda-blog
+  validate_helm:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    name: Validate Helm with Monokle
+    steps:
+      - id: checkout
+        uses: actions/checkout@master
+      - id: bake
+        uses: azure/k8s-bake@v2.2
+        with:
+          renderEngine: "helm"
+          helmChart: "./helm-yellow-wordpress"
+      - id: validate
+        uses: kubeshop/monokle-action@v0.2.0
+        with:
+          path: ${{ steps.bake.outputs.manifestsBundle }}
