@@ -7,9 +7,10 @@ rules:
   yaml-syntax/no-bad-alias: "warn"
   yaml-syntax/no-bad-directive: false
   open-policy-agent/no-last-image: "err"
-  open-policy-agent/cpu-limit: "err"
-  open-policy-agent/memory-limit: "err"
-  open-policy-agent/memory-request: "err"
+  open-policy-agent/cpu-limit: false
+  open-policy-agent/cpu-request: false
+  open-policy-agent/memory-limit: false
+  open-policy-agent/memory-request: false
   open-policy-agent/no-latest-image: "err"
 settings:
   kubernetes-schema:
