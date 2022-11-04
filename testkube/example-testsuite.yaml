@@ -17,5 +17,10 @@ spec:
     - delay:
         duration: 2000
     - execute:
-        name: example-test2
+        name: example-test3
+        namespace: testkube
+    - delay:
+        duration: 5000
+    - execute:
+        name: example-test4
         namespace: testkube
