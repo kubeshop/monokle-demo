@@ -1,0 +1,21 @@
+apiVersion: tests.testkube.io/v2
+kind: TestSuite
+metadata:
+  name: example-testsuite
+  namespace: testkube
+spec:
+  description: Example Test Suite
+  steps:
+    - execute:
+        name: example-test1
+        namespace: testkube
+    - delay:
+        duration: 10000
+    - execute:
+        name: example-test2
+        namespace: testkube
+    - delay:
+        duration: 2000
+    - execute:
+        name: example-test2
+        namespace: testkube
