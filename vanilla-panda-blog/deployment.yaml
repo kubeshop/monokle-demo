@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: panda-blog
-  namespace: other-branch
+  namespace: third-branch
   labels:
     monokle.io/demo: vanilla-panda-blog
 spec:
