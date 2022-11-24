@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: panda-blog
+  namespace: third-branch
+  labels:
+    monokle.io/demo: vanilla-panda-blog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: panda-blog
+  template:
+    metadata:
+      labels:
+        app: panda-blog
+    spec:
+      securityContext:
+        runAsUser: 12000
+        runAsGroup: 11000
+      containers:
+        - name: panda-blog
+          image: panda-blog:latest
+          ports:
+            - name: http-web
+              containerPort: 8080
+        - name: panda-sidecar
+          image: panda-sidecar:latest
+          securityContext:
+            runAsUser: 650
+          ports:
+            - name: http-web
+              containerPort: 8080
