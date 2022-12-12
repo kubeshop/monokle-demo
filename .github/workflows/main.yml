@@ -50,6 +50,6 @@ jobs:
           renderEngine: "helm"
           helmChart: "./helm-yellow-wordpress"
       - id: validate
-        uses: kubeshop/monokle-action@v0.2.0
+        uses: kubeshop/monokle-action@main
         with:
           path: ${{ steps.bake.outputs.manifestsBundle }}
