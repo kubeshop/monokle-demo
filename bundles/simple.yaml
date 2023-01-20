@@ -33,5 +33,5 @@ spec:
   ports:
     - name: http-web
       protocol: TCP
-      port: "this-should-be-a-number"
+      port: 80
       targetPort: 8080
