@@ -14,6 +14,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: demo
+                name: bloop
                 port:
                   number: 80
