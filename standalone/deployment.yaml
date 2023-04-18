@@ -6,7 +6,7 @@ metadata:
   labels:
     monokle.io/demo: vanilla-bear-blog
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: bear-blog
