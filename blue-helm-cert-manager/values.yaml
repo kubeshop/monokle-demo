@@ -14,8 +14,8 @@ global:
   #    ref: https://cert-manager.io/docs/reference/api-docs/#acme.cert-manager.io/v1.ACMEChallengeSolverHTTP01Ingress
   # eg. secretTemplate in CertificateSpec
   #    ref: https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificateSpec
-  commonLabels: {}
-  # team_name: dev
+  commonLabels:
+    team_name: dev
 
   # Optional priority class to be used for the cert-manager pods
   priorityClassName: ""
