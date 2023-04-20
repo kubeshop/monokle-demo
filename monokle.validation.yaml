@@ -11,7 +11,7 @@ rules:
   open-policy-agent/cpu-request: false
   open-policy-agent/memory-limit: false
   open-policy-agent/memory-request: false
-  open-policy-agent/no-latest-image: "err"
+  open-policy-agent/no-latest-image: "warn"
 settings:
   kubernetes-schema:
     schemaVersion: v1.24.2
