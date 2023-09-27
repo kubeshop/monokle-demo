@@ -5,7 +5,7 @@ metadata:
   labels:
     monokle.io/demo: vanilla-blue-cms
 spec:
-  replicas: "this-should-be-a-number"
+  replicas: 5
   selector:
     matchLabels:
       app: blue-cms
@@ -16,10 +16,20 @@ spec:
     spec:
       containers:
         - name: blue-cms
-          image: blue-cms:latest
+          image: blue-cms:v1.4
           ports:
             - name: http-web
               containerPort: 8080
+          securityContext:
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+            runAsNonRoot: true
+      automountServiceAccountToken: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
 ---
 apiVersion: v1
 kind: Service
@@ -29,9 +39,9 @@ metadata:
     monokle.io/demo: vanilla-blue-cms
 spec:
   selector:
-    app: blue-INCORRECT_REFERENCE
+    app: blue-cms
   ports:
     - name: http-web
       protocol: TCP
-      port: "this-should-be-a-number"
+      port: 80
       targetPort: 8080
