@@ -12,6 +12,7 @@ metadata:
   namespace: demo
   labels:
     app: nginx
+    env: production
 spec:
   replicas: 3
   selector:
