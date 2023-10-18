@@ -9,10 +9,10 @@ spec:
     kind: ConfigMap
   matchConstraints:
     resourceRules:
-      - apiGroups: ["*"]
-        apiVersions: ["v1"]
-        operations: ["CREATE", "UPDATE"]
-        resources: ["deployments"]
+      - apiGroups: [ "apps" ]
+        apiVersions: [ "v1" ]
+        operations: [ "CREATE", "UPDATE" ]
+        resources: [ "deployments" ]
   validations:
     - expression: "object.spec.replicas <= params.data.maxReplicas"
 ---

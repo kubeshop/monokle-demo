@@ -6,10 +6,10 @@ spec:
   failurePolicy: Fail
   matchConstraints:
     resourceRules:
-      - apiGroups: ["*"]
-        apiVersions: ["v1"]
-        operations: ["CREATE", "UPDATE"]
-        resources: ["deployments"]
+      - apiGroups: [ "apps" ]
+        apiVersions: [ "v1" ]
+        operations: [ "CREATE", "UPDATE" ]
+        resources: [ "deployments" ]
   validations:
     - expression: "object.spec.replicas > 3"
 ---
