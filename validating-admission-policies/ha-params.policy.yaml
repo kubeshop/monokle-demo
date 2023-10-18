@@ -15,6 +15,7 @@ spec:
         resources: [ "deployments" ]
   validations:
     - expression: "object.spec.replicas <= params.data.maxReplicas"
+      message: "replicas must be less or equal to than maxReplicas"
 ---
 apiVersion: v1
 kind: ConfigMap

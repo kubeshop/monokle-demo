@@ -12,6 +12,7 @@ spec:
         resources: [ "deployments" ]
   validations:
     - expression: "object.spec.replicas > 3"
+      message: "replicas must be greater than 3"
 ---
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: ValidatingAdmissionPolicyBinding
