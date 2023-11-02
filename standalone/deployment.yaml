@@ -21,13 +21,8 @@ spec:
       containers:
         - name: panda-blog
           image: panda-blog:latest
-          ports:
-            - name: http-web
-              containerPort: 8080
-        - name: panda-sidecar
-          image: panda-sidecar:latest
           securityContext:
-            runAsUser: 650
+            readOnlyRootFilesystem: true
           ports:
             - name: http-web
               containerPort: 8080
