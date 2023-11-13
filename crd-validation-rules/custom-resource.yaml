@@ -1,0 +1,7 @@
+apiVersion: example.com/v1
+kind: MyCustomResource
+metadata:
+  name: example-demo
+spec:
+  replicas: 10
+  maxReplicas: 20

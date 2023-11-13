@@ -1,0 +1,24 @@
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: env-label
+spec:
+  failurePolicy: Fail
+  matchConstraints:
+    resourceRules:
+      - apiGroups: [ "apps" ]
+        apiVersions: [ "v1" ]
+        operations: [ "CREATE", "UPDATE" ]
+        resources: [ "deployments" ]
+  validations:
+    - expression: "has(object.metadata.labels) && has(object.metadata.labels.env) &&
+        object.metadata.labels.env in ['production', 'staging']"
+      message: Missing expected env label
+---
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: env-label
+spec:
+  policyName: env-label
+  validationActions: [ Deny ]

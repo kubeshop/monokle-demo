@@ -1,0 +1,100 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: job-1
+  labels:
+    app: cj
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: hello
+              image: busybox:1.28
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - date; echo Hello from the Kubernetes cluster
+          restartPolicy: OnFailure
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 5
+  rollbackTo:
+    revision: 0
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.14.2
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: FlowSchema
+metadata:
+  name: health-for-strangers
+spec:
+  matchingPrecedence: 1000
+  priorityLevelConfiguration:
+    name: exempt
+  rules:
+    - nonResourceRules:
+        - nonResourceURLs:
+            - "/healthz"
+            - "/livez"
+            - "/readyz"
+          verbs:
+            - "*"
+      subjects:
+        - kind: Group
+          group:
+            name: "system:unauthenticated"
+---
+apiVersion: apps/v1beta1
+kind: ReplicaSet
+metadata:
+  name: frontend
+  labels:
+    app: guestbook
+    tier: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        tier: frontend
+    spec:
+      containers:
+        - name: php-redis
+          image: gcr.io/google_samples/gb-frontend:v3
+---
+apiVersion: storage.k8s.io/v1beta1
+kind: StorageClass
+metadata:
+  name: standard
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: gp2
+reclaimPolicy: Retain
+allowVolumeExpansion: true
+mountOptions:
+  - debug
+volumeBindingMode: Immediate
