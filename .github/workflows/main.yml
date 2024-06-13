@@ -8,7 +8,7 @@ jobs:
       - id: checkout
         uses: actions/checkout@master
       - id: bake
-        uses: azure/k8s-bake@v2.2
+        uses: azure/k8s-bake@v3.0
         with:
           renderEngine: "kustomize"
           kustomizationPath: "./kustomize-happy-cms/overlays/local"
